@@ -1,0 +1,12 @@
+[package]
+name = "splitdiff-rs"
+version = "0.1.0"
+authors = ["hedgar2017 <hedgar2017@gmail.com>"]
+edition = "2018"
+license = "MIT"
+description = "Rust splitdiff implementation"
+
+[dependencies]
+clap = "2.32.0"
+failure = "0.1.5"
+lsdiff-rs = { git = "https://github.com/foundpatterns/lsdiff-rs", version = "0.1.1" }
