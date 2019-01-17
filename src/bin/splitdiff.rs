@@ -28,7 +28,7 @@ fn main() -> Result<(), Error> {
     let patch = args.value_of("patch").unwrap();
     let patch = fs::read_to_string(patch).map_err(Error::Reading)?;
 
-    let patch_data = splitdiff_rs::process(&patch).map_err(Error::Processing)?;
+    let patch_data = splitdiff_rs::SplitDiff::process(&patch).map_err(Error::Processing)?;
     for (i, (path, patches)) in patch_data.0.iter().enumerate() {
         println!("File {}: {}", i, path);
         for (j, patch) in patches.iter().enumerate() {
