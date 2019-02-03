@@ -1,5 +1,5 @@
 //!
-//! The `splitdiff` library.
+//! The Splitdiff library.
 //!
 
 use std::collections::BTreeMap;

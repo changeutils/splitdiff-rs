@@ -1,5 +1,5 @@
 //!
-//! The `splitdiff` binary.
+//! The Splitdiff binary.
 //!
 
 use std::{fs, io};
@@ -7,7 +7,7 @@ use std::{fs, io};
 #[derive(Debug)]
 enum Error {
     Reading(io::Error),
-    Processing(splitdiff_rs::Error),
+    Splitdiff(splitdiff_rs::Error),
 }
 
 fn main() -> Result<(), Error> {
@@ -25,11 +25,12 @@ fn main() -> Result<(), Error> {
         )
         .get_matches();
 
-    let patch = args.value_of("patch").unwrap();
+    let patch = args.value_of("patch").expect("Unreachable");
+
     let patch = fs::read_to_string(patch).map_err(Error::Reading)?;
 
     let splitdiff = splitdiff_rs::SplitDiff::new(&patch);
-    let patch_data = splitdiff.process().map_err(Error::Processing)?;
+    let patch_data = splitdiff.process().map_err(Error::Splitdiff)?;
     for (i, (path, patches)) in patch_data.0.iter().enumerate() {
         println!("File {}: {}", i, path);
         for (j, patch) in patches.iter().enumerate() {
